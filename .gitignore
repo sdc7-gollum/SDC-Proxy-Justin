@@ -1,5 +1,6 @@
 # Secrets
 .env
+newkey.js
 
 # Dev Dependencies
 node_modules
