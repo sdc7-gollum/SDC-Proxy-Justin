@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+require('newrelic');
 require('dotenv').config();
 const express = require('express');
 const { createProxyMiddleware } = require('http-proxy-middleware');
@@ -7,15 +8,15 @@ const host = process.env.SERVER_HOST;
 const port = process.env.SERVER_PORT;
 const app = express();
 
-const photosPort =  process.env.photosPort || 9800;
-const descPort = process.env.descPort || 9006;
-const resPort = process.env.resPort || 9802;
-const reviewsPort = process.env.reviewsPort || 9803;
+const photosPort =  process.env.photosPort || 9000;
+// const descPort = process.env.descPort || 9003;
+const resPort = process.env.resPort || 9002;
+const reviewsPort = process.env.reviewsPort || 9003;
 
 // Middleware
 app.use(createProxyMiddleware(`http://${host}:${photosPort}/api/photos`, { changeOrigin: true }));
-app.use(createProxyMiddleware(`http://${host}:${descPort}/api/description`, { changeOrigin: true }));
-app.use(createProxyMiddleware(`http://${host}:${descPort}/api/place`, { changeOrigin: true }));
+// app.use(createProxyMiddleware(`http://${host}:${descPort}/api/description`, { changeOrigin: true }));
+// app.use(createProxyMiddleware(`http://${host}:${descPort}/api/place`, { changeOrigin: true }));
 app.use(createProxyMiddleware(`http://${host}:${resPort}/api/room`, { changeOrigin: true }));
 app.use(createProxyMiddleware(`http://${host}:${reviewsPort}/api/ratings`, { changeOrigin: true }));
 app.use(createProxyMiddleware(`http://${host}:${reviewsPort}/api/reviews`, { changeOrigin: true }));
